@@ -1,0 +1,57 @@
+{
+  "session_id": "sess_demo_api_triage_001",
+  "status": "closed",
+  "opened_at": "2024-11-04T09:00:00Z",
+  "closed_at": "2024-11-04T09:30:00Z",
+  "mission": {
+    "id": "mission_demo_api_triage",
+    "title": "Triage a fictional API response bug",
+    "status": "complete",
+    "created_at": "2024-11-04T09:00:00Z",
+    "constraints": [
+      "Use only synthetic inputs and local tests",
+      "Do not contact a real API or include credentials"
+    ],
+    "success_criteria": [
+      "Reproduce the reported behavior with a synthetic fixture",
+      "Record a reviewable decision and next action"
+    ]
+  },
+  "events": [
+    {
+      "id": "evt_demo_report",
+      "session_id": "sess_demo_api_triage_001",
+      "type": "bug_reported",
+      "source": "synthetic_fixture",
+      "created_at": "2024-11-04T09:05:00Z",
+      "payload": {
+        "summary": "A fictional API response omits an optional display name.",
+        "expected": "The client renders a fallback label."
+      }
+    },
+    {
+      "id": "evt_demo_reproduction",
+      "session_id": "sess_demo_api_triage_001",
+      "type": "reproduction_completed",
+      "source": "local_test",
+      "created_at": "2024-11-04T09:15:00Z",
+      "payload": {
+        "summary": "A local synthetic response reproduces the missing fallback.",
+        "result": "reproduced"
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision_demo_fallback",
+      "session_id": "sess_demo_api_triage_001",
+      "title": "Propose a fallback label and regression test",
+      "outcome": "needs_review",
+      "created_at": "2024-11-04T09:25:00Z",
+      "rationale": "The local fixture reproduces the issue; a maintainer should review the proposed change.",
+      "evidence": ["evt_demo_report", "evt_demo_reproduction"]
+    }
+  ],
+  "summary": "Closed triage after reproducing the fictional report. Next: review a proposed fallback and regression test.",
+  "note": "Fake demo data only; no real API, customer, credential, or incident is represented."
+}

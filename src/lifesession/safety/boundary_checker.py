@@ -1,6 +1,7 @@
 """Scans files for obvious private-data patterns before public release."""
 from __future__ import annotations
 import re
+from importlib.util import source_from_cache
 from pathlib import Path
 
 _PATTERNS = [
@@ -19,6 +20,15 @@ def scan_directory(path: str | Path) -> list[dict]:
     for f in Path(path).rglob("*"):
         if not f.is_file() or f.resolve() == self_path:
             continue
+        # The scanner's own bytecode embeds the same detection patterns as its
+        # excluded source. Exclude only caches mapped to this exact source;
+        # other bytecode and files inside __pycache__ must still be scanned.
+        if f.suffix == ".pyc":
+            try:
+                if Path(source_from_cache(str(f.resolve()))).resolve() == self_path:
+                    continue
+            except ValueError:
+                pass
         try:
             text = f.read_text(errors="ignore")
         except OSError:

@@ -177,3 +177,25 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines.
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+## Export a local session report
+
+From the repository root, render a session JSON file as Markdown:
+
+```bash
+PYTHONPATH=src python -m lifesession report examples/maintainer/session_close.json
+```
+
+The command writes to standard output. To save a report, redirect it to a file
+of your choice. It uses only the Python standard library and makes no network
+requests. Invalid JSON, unreadable files, and missing or empty `session_id`
+values return exit code 2 without printing input contents.
+
+The exporter supports session snapshots and `Session.close()` records. Common
+fields get readable sections; additional fields are preserved as literal JSON.
+Text is fenced to prevent embedded Markdown or HTML from becoming report markup.
+This checks the session envelope, not full schema conformance.
+
+**Review before sharing:** exporting is not sanitization. The report preserves
+input data, including any sensitive values you supply. Use the fake examples for
+public demos. Python callers can use `lifesession.report.render_markdown(record)`.

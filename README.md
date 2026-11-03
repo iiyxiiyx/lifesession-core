@@ -130,6 +130,11 @@ See [docs/codex-workflows.md](docs/codex-workflows.md) for the full workflow spe
 
 All examples in `examples/` use fake data only. See [docs/public-private-boundary.md](docs/public-private-boundary.md).
 
+For a complete fictional bug-triage walkthrough, see
+[`examples/maintainer/api_triage_session.json`](examples/maintainer/api_triage_session.json).
+It records a mission, two events, a reviewable decision and a close summary.
+It is a demonstration envelope, not a complete JSON Schema validation example.
+
 ---
 
 ## Safety Boundary
